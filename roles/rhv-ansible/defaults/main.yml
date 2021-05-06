@@ -6,7 +6,7 @@ _rhv_vm:
   cluster: "Default"
   type: "server"
   disk_format: "cow"
-  storage_domain: "vmstore"
+  storage_domain: "data"
   nics: []
   disks: []
   cloud_init_nics: []
