@@ -26,7 +26,7 @@ rhv_vm:
   - name: "vmhttpd02"
     memory: "4GiB"
     cpu_cores: "1"
-    template: "RHEL_7.9"
+    template: "RHEL_7.9_Cloud_Init"
     url: "{{ rhv_url }}/ovirt-engine/api"
     rhv_user: "admin@internal"
     rhv_password: "{{ admin_password }}"
