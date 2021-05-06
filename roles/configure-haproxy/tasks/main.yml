@@ -2,4 +2,4 @@
 - name: "test"
   debug:
     msg: "{{ item }}"
-  loop: groups['web-servers']
+  loop: "{{ groups['web-servers'] }}"
