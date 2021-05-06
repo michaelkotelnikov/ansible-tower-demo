@@ -3,7 +3,7 @@ rhv_vm:
   - name: "vmhttpd01"
     memory: "4GiB"
     cpu_cores: "1"
-    template: "rhel76template"
+    template: "Rhel-7.8-Base"
     url: "{{ rhv_url }}/ovirt-engine/api"
     rhv_user: "admin@internal"
     rhv_password: "{{ admin_password }}"
