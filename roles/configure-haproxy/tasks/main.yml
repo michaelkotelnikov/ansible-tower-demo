@@ -1,3 +1,4 @@
 ---
 - name: "test"
-  shell: "echo {{ groups['web-servers'] }}"
+  debug:
+    msg: "{{ groups['web-servers'] }}"
