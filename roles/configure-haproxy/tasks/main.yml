@@ -3,3 +3,35 @@
   debug:
     msg: "{{ item }}"
   loop: "{{ groups['web-servers'] }}"
+
+- name: register the machine to subsription-manager
+  redhat_subscription:
+    state: present
+    username: "{{ redhat_user }}"
+    password: "{{ redhat_password }}"
+    auto_attach: true 
+
+- name: Install haproxy package
+  yum:
+    name: haproxy
+    state: present
+  notify: restart haproxy
+
+- name: Set the configuration haproxy.cfg file
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: restart haproxy
+
+- name: Start the haproxy server
+  service:
+    name: haproxy
+    enabled: yes
+    state: started
+
+- name: Add haproxy service to firewalld
+  firewalld:
+    permanent: yes
+    port: {{ haproxy_firewall_port }}/{{ haproxy_firewall_protocol }}
+    state: enabled
+    immediate: yes

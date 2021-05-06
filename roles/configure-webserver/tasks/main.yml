@@ -15,7 +15,7 @@
 - name: Set the configuration httpd.conf file
   template:
     src: httpd.conf
-    dest: /etc/httpd/conf/httpd.conf
+    dest: /etc/httpd/conf/httpd.conf.j2
   notify: restart httpd
 
 - name: Copy the template index.html file
