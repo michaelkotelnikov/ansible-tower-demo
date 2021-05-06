@@ -1,0 +1,32 @@
+---
+- name: register the machine to subsription-manager
+  redhat_subscription:
+    state: present
+    username: "{{ redhat_user }}"
+    password: "{{ redhat_password }}"
+    auto_attach: true 
+
+- name: Install httpd package
+  yum:
+    name: httpd
+    state: present
+  notify: restart httpd
+
+- name: Copy the template index.html file
+  copy:
+    src: index.html
+    dest: /var/www/html/index.html
+  notify: restart httpd
+
+- name: Start the httpd server
+  service:
+    name: httpd
+    enabled: yes
+    state: started
+
+- name: Add http service to firewalld
+  firewalld:
+    permanent: yes
+    service: http
+    state: enabled
+    immediate: yes

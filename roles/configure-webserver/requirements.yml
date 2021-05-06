@@ -1,0 +1,4 @@
+---
+- name: ansible-httpd-demo-role
+  src: https://github.com/michaelkotelnikov/ansible-httpd-demo-role
+  scm: git
