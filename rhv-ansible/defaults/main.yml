@@ -1,0 +1,13 @@
+---
+_rhv_vm:
+  state: "running"
+  memory: "2GiB"
+  cpu_cores: "1"
+  cluster: "Default"
+  type: "server"
+  disk_format: "cow"
+  storage_domain: "vmstore"
+  nics: []
+  disks: []
+  cloud_init_nics: []
+  cloud_init: {}

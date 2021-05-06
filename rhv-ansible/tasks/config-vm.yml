@@ -1,0 +1,42 @@
+---
+
+- name: "Set defaults as needed"
+  set_fact:
+   rhv_prov_vm: "{{ _rhv_vm | combine(rhv_vm, recursive=True) }}" 
+
+- name: "Create HD for vms"
+  ovirt_disk:
+    auth:
+       url: "{{ rhv_prov_vm.url }}"
+       username: "{{ rhv_prov_vm.rhv_user }}"
+       password: "{{ rhv_prov_vm.rhv_password }}"
+       insecure: "{{ rhv_prov_vm.insecure }}"
+    name: "{{ item.name }}"
+    format: "{{ rhv_prov_vm.disk_format }}"
+    size: "{{ item.disk_size }}"
+    storage_domain: "{{ rhv_prov_vm.storage_domain }}"
+    interface: "{{ item.interface }}"
+  loop: "{{ rhv_prov_vm.disks }}"
+
+- name: "Create the vm"
+  ovirt_vm:
+    auth:
+       url: "{{ rhv_prov_vm.url }}"
+       username: "{{ rhv_prov_vm.rhv_user }}"
+       password: "{{ rhv_prov_vm.rhv_password }}"
+       insecure: "{{ rhv_prov_vm.insecure }}"
+    state: "{{ rhv_prov_vm.state }}"
+    name: "{{ rhv_prov_vm.name }}"
+    template: "{{ rhv_prov_vm.template }}"
+    memory: "{{ rhv_prov_vm.memory }}"
+    cpu_cores: "{{ rhv_prov_vm.cpu_cores }}"
+    cluster: "{{ rhv_prov_vm.cluster }}"
+    type: "{{ rhv_prov_vm.type }}"
+    nics: "{{ rhv_prov_vm.nics }}"
+    cloud_init: "{{ rhv_prov_vm.cloud_init }}"
+    cloud_init_nics: "{{ rhv_prov_vm.cloud_init_nics }}"
+    disks: "{{ rhv_prov_vm.disks }}"
+
+- name: "Add the vm to the inventory if needed"
+  include: "add-to-hosts.yml"
+  when: "rhv_prov_vm.ansible_host is defined"

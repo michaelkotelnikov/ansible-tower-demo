@@ -1,0 +1,4 @@
+---
+- name: rhev-ansible
+  src: https://gitlab.com/michael.kot/rhev-ansible
+  scm: git

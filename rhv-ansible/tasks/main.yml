@@ -1,0 +1,3 @@
+---
+- name: "Run the required rhv task"
+  include: "{{ rhv_action | default('create-all-vms.yml') }}"
