@@ -32,6 +32,6 @@
 - name: Add haproxy service to firewalld
   firewalld:
     permanent: yes
-    port: {{ haproxy_firewall_port }}/{{ haproxy_firewall_protocol }}
+    port: "{{ haproxy_firewall_port }}/{{ haproxy_firewall_protocol }}"
     state: enabled
     immediate: yes
