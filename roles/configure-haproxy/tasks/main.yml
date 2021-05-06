@@ -1,9 +1,4 @@
 ---
-- name: "test"
-  debug:
-    msg: "{{ item }}"
-  loop: "{{ groups['web-servers'] }}"
-
 - name: register the machine to subsription-manager
   redhat_subscription:
     state: present
