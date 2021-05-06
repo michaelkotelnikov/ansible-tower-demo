@@ -1,3 +1,4 @@
 ---
 haproxy_firewall_port: "8080"
 haproxy_firewall_protocol: "tcp"
+httpd_firewall_port: "80"

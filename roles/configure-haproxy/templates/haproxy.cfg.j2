@@ -92,5 +92,5 @@ backend app
 #---------------------------------------------------------------------
 backend web_servers
     balance roundrobin
-    server vmhttpd01 vmhttpd01:{{ haproxy_firewall_port }}
-    server vmhttpd02 vmhttpd02:{{ haproxy_firewall_port }}
+    server vmhttpd01 vmhttpd01:{{ httpd_firewall_port }}
+    server vmhttpd02 vmhttpd02:{{ httpd_firewall_port }}
