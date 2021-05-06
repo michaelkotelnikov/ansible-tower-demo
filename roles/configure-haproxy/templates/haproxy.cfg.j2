@@ -92,6 +92,6 @@ backend app
 #---------------------------------------------------------------------
 backend web_servers
     balance roundrobin
-{%- for httpd_server in groups['web-servers'] %}
-    server {{ httpd_server }}:{{ httpd_firewall_port }}
+{% for httpd_server in groups['web-servers'] %}
+    server {{ httpd_server }} {{ httpd_server }}:{{ httpd_firewall_port }}
 {% endfor %}
