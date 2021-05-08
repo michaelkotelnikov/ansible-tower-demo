@@ -7,4 +7,4 @@
 
 - name: test
   debug:
-    msg: "{{ get_result }}"
+    msg: "{{ get_result['failed'] }}"
