@@ -6,6 +6,8 @@
   register: get_result
 
 - name: test
-  debug:
-    msg: "{{ get_result['failed'] }}"
+  lineinfile:
+    path: /etc/haproxy/haproxy.cfg
+    state: absent
+    regexp: "{{ hostvars[item]['ansible_default_ipv4']['address'] }}"
   when: get_result.failed == true
