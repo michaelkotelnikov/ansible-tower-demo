@@ -12,7 +12,7 @@
     state: present
   notify: restart haproxy
 
-- name: Gather facts regarding the web servers
+- name: Gather facts from the web servers
   setup:
     gather_timeout: "10"
   delegate_to: "{{ item }}"
