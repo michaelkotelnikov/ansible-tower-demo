@@ -12,6 +12,12 @@
     state: present
   notify: restart httpd
 
+- name: Backup the httpd.conf file
+  copy:
+    remote_src: yes
+    src: /etc/httpd/conf/httpd.conf
+    dest: /tmp/httpd.conf.bk
+
 - name: Set the configuration httpd.conf file
   template:
     src: httpd.conf.j2
