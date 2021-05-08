@@ -7,13 +7,13 @@
 
 - name: Remove faulty server from the HaProxy configuration
   block:
-  - name: Remove the faulty server from the configutation file
+  - name: Remove the faulty server from the HaProxy configutation file
     lineinfile:
       path: /etc/haproxy/haproxy.cfg
       state: absent
       regexp: "{{ hostvars[item]['ansible_default_ipv4']['address'] }}"
 
-  - name: Restart the HAProxy service
+  - name: Restart the HaProxy service
     service:
       name: haproxy
       state: restarted
