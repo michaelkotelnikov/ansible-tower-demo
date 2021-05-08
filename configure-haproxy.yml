@@ -1,8 +1,3 @@
-- hosts: web-servers
-  pre_tasks:
-    - name: Gather facts from ALL hosts (regardless of limit or tags)
-      setup:
-
 - hosts: haproxy-servers
   roles:
   - configure-haproxy

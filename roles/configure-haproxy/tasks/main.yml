@@ -12,6 +12,11 @@
     state: present
   notify: restart haproxy
 
+- name: Gather facts regarding the web servers
+  setup:
+  delegate_to: "{{ item }}"
+  loop: "{{ groups['web-servers'] }}"
+
 - name: Set the configuration haproxy.cfg file
   template:
     src: haproxy.cfg.j2
