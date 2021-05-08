@@ -1,0 +1,12 @@
+---
+- name: Gather facts from the web servers
+  setup:
+    gather_timeout: "10"
+  delegate_to: "{{ item }}"
+  delegate_facts: true
+  loop: "{{ groups['web-servers'] }}"
+
+- name: Validate connection to the web server
+  uri:
+    url: "http://{{ hostvars[item]['ansible_default_ipv4']['address'] }}"
+  loop: "{{ groups['web-servers'] }}"

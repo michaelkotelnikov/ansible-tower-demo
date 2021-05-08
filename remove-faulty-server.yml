@@ -1,0 +1,4 @@
+---
+- hosts: haproxy-servers
+  roles:
+  - remove-faulty-server
