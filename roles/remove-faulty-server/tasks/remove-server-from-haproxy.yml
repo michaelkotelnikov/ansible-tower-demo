@@ -5,9 +5,16 @@
   ignore_errors: yes
   register: get_result
 
-- name: test
-  lineinfile:
-    path: /etc/haproxy/haproxy.cfg
-    state: absent
-    regexp: "{{ hostvars[item]['ansible_default_ipv4']['address'] }}"
+- name: Remove faulty server from the HaProxy configuration
+  block:
+  - name: Remove the faulty server from the configutation file
+    lineinfile:
+      path: /etc/haproxy/haproxy.cfg
+      state: absent
+      regexp: "{{ hostvars[item]['ansible_default_ipv4']['address'] }}"
+
+  - name: Restart the HAProxy service
+    service:
+      name: haproxy
+      state: restarted
   when: get_result.failed == true
