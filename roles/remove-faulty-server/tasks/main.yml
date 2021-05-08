@@ -6,7 +6,6 @@
   delegate_facts: true
   loop: "{{ groups['web-servers'] }}"
 
-- name: Validate connection to the web server
-  uri:
-    url: "http://{{ hostvars[item]['ansible_default_ipv4']['address'] }}"
+- name: Treat faulty web servers
+  include_tasks: remove-server-from-haproxy.yml
   loop: "{{ groups['web-servers'] }}"
