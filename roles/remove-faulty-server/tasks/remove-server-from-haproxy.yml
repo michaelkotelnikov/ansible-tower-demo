@@ -8,4 +8,4 @@
 - name: test
   debug:
     msg: "{{ get_result['failed'] }}"
-  when: get_result.failed is 'true'
+  when: get_result.failed is true
