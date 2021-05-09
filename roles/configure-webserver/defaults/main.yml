@@ -1,3 +1,4 @@
 ---
 webserver_backup_path: "/tmp/httpd.conf.bk"
 httpd_firewall_port: "80"
+httpd_firewall_protocol: "tcp"
