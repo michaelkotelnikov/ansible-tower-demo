@@ -1,3 +1,4 @@
+---
 - hosts: haproxy-servers
   roles:
   - configure-haproxy
