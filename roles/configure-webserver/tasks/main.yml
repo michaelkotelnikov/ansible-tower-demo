@@ -16,7 +16,7 @@
   copy:
     remote_src: yes
     src: /etc/httpd/conf/httpd.conf
-    dest: /tmp/httpd.conf.bk
+    dest: "{{ webserver_backup_path }}"
 
 - name: Set the configuration httpd.conf file
   template:
@@ -39,6 +39,6 @@
 - name: Add http service to firewalld
   firewalld:
     permanent: yes
-    service: http
+    port: "{{ httpd_firewall_port }}/{{ httpd_firewall_protocol }}"
     state: enabled
     immediate: yes
