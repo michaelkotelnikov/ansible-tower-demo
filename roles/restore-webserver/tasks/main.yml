@@ -1,0 +1,19 @@
+---
+- name: Make sure that a backup file is present
+  stat:
+    path: "{{ webserver_backup_path }}"
+  register: webserver_backup_stat
+
+- name: Fail execution when a backup file does not exist
+  fail:
+    msg: "A backup file does not exist. Can not restore web server"
+  when: not webserver_backup_stat.stat.exists
+
+- name: Restore webserver configuration file
+  copy:
+    remote_src: yes
+    src: "{{ webserver_backup_path }}"
+    dest: /etc/httpd/conf/httpd.conf
+  when: webserver_backup_stat.stat.exists
+  notify: restart httpd
+
