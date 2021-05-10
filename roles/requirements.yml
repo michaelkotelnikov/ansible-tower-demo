@@ -1,0 +1,4 @@
+---
+- name: redhat-subscription-role
+  src: https://github.com/michaelkotelnikov/redhat-subscription-role
+  scm: git
