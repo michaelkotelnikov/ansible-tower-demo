@@ -1,5 +1,4 @@
 ---
-
 - name: "Set defaults as needed"
   set_fact:
    rhv_prov_vm: "{{ _rhv_vm | combine(rhv_vm_definition, recursive=True) }}" 
@@ -38,5 +37,10 @@
     disks: "{{ rhv_prov_vm.disks }}"
 
 - name: "Add the vm to the inventory if needed"
-  include: "add-to-hosts.yml"
+  add_host:
+    hostname: "{{ rhv_prov_vm.name }}"
+    ansible_host: "{{ rhv_prov_vm.ansible_host }}"
+    ansible_user: "{{ rhv_prov_vm.cloud_init.user_name }}"
+    ansible_password: "{{ rhv_prov_vm.cloud_init.root_password }}"
+    groups: "{{ rhv_prov_vm.ansible_group_list }}"
   when: "rhv_prov_vm.ansible_host is defined"

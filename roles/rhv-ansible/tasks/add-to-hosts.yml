@@ -1,8 +1,0 @@
----
-- name: "Add the vms to your inventory"
-  add_host:
-    hostname: "{{ rhv_prov_vm.name }}"
-    ansible_host: "{{ rhv_prov_vm.ansible_host }}"
-    ansible_user: "{{ rhv_prov_vm.cloud_init.user_name }}"
-    ansible_password: "{{ rhv_prov_vm.cloud_init.root_password }}"
-    groups: "{{ rhv_prov_vm.ansible_group_list }}"
