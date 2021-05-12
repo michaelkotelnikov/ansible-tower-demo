@@ -2,7 +2,7 @@
 
 - name: "Set defaults as needed"
   set_fact:
-   rhv_prov_vm: "{{ _rhv_vm | combine(rhv_vm, recursive=True) }}" 
+   rhv_prov_vm: "{{ _rhv_vm | combine(rhv_vm_definition, recursive=True) }}" 
 
 - name: "Create HD for vms"
   ovirt_disk:

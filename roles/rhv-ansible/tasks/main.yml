@@ -1,3 +1,7 @@
 ---
-- name: "Run the required rhv task"
-  include: "{{ rhv_action | default('create-all-vms.yml') }}"
+- name: "Deploy all vms"
+  include: config-vm.yml
+  loop_control:
+    loop_var: rhv_vm_definition
+  loop:
+  - "{{ rhv_vm }}"

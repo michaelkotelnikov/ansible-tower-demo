@@ -1,7 +1,0 @@
----
-- name: "Deploy all vms"
-  include: config-vm.yml
-  loop_control:
-    loop_var: rhv_vm
-  with_items:
-  - "{{ rhv_vm }}"
