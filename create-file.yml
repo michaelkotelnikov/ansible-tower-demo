@@ -1,0 +1,5 @@
+---
+- hosts: web-servers 
+  roles:
+  - create-file
+  serial: 1
