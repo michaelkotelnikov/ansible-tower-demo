@@ -1,9 +1,9 @@
 ---
 - name: Log in (obtain access token)
   community.okd.openshift_auth:
-    username: admin
+    username: "{{ ocp_user }}"
     password: "{{ ocp_password }}"
-    host: "https://api.cluster-4whxk.dynamic.redhatworkshops.io:6443"
+    host: "{{ ocp_url }}"
     validate_certs: false
   register: k8s_auth_results
 
@@ -13,9 +13,7 @@
     name: testvm
     namespace: kubevirt-ansible
     validate_certs: false
-#    username: "{{ ocp_user }}"
-#    password: "{{ ocp_password }}"
-    host: "https://api.cluster-4whxk.dynamic.redhatworkshops.io:6443"
+    host: "{{ ocp_url }}"
     api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
     labels:
       app: test
