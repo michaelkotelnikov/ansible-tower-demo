@@ -4,3 +4,4 @@
 #  - redhat-subscription-role
   - configure-webserver
   serial: 1
+  become: true
