@@ -29,9 +29,14 @@
     enabled: yes
     state: started
 
+- name: "Check if firewalld is installed"
+  package_facts:
+    manager: "auto"
+
 - name: Add http service to firewalld
-  ansible.posix.firewalld:
+  firewalld:
     permanent: yes
     port: "{{ httpd_firewall_port }}/{{ httpd_firewall_protocol }}"
     state: enabled
     immediate: yes
+  when: "'firewalld' in ansible_facts.packages"
