@@ -30,7 +30,7 @@
     state: started
 
 - name: Add http service to firewalld
-  firewalld:
+  ansible.posix.firewalld:
     permanent: yes
     port: "{{ httpd_firewall_port }}/{{ httpd_firewall_protocol }}"
     state: enabled
