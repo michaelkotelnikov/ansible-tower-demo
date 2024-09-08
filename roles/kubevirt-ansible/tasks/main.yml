@@ -1,6 +1,6 @@
 ---
 - name: Log in (obtain access token)
-  k8s_auth:
+  kubernetes.core.k8s_auth:
     username: admin
     password: "{{ ocp_password }}"
     host: "https://api.cluster-4whxk.dynamic.redhatworkshops.io:6443"
