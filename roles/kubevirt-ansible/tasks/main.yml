@@ -1,13 +1,20 @@
 ---
+- name: Log in (obtain access token)
+  k8s_auth:
+    username: admin
+    password: "{{ ocp_password }}"
+  register: k8s_auth_results
+
 - name: "Create VM"
   kubevirt.core.kubevirt_vm:
     state: present
     name: testvm
     namespace: kubevirt-ansible
-#    host: "https://api.cluster-4whxk.dynamic.redhatworkshops.io:6443"
-#    validate_certs: false
+    host: "https://api.cluster-4whxk.dynamic.redhatworkshops.io:6443"
+    validate_certs: false
 #    username: "{{ ocp_user }}"
 #    password: "{{ ocp_password }}"
+    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
     labels:
       app: test
     instancetype:
