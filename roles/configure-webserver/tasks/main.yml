@@ -39,4 +39,4 @@
     port: "{{ httpd_firewall_port }}/{{ httpd_firewall_protocol }}"
     state: enabled
     immediate: yes
-  when: "'firewalld' not in ansible_facts.packages"
+  when: "'firewalld' in ansible_facts.packages"
