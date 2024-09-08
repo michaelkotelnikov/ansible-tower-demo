@@ -4,6 +4,7 @@
     state: present
     name: testvm
     namespace: kubevirt-ansible
+    host: "https://api.cluster-4whxk.dynamic.redhatworkshops.io:6443"
     username: "{{ ocp_user }}"
     password: "{{ ocp_password }}"
     labels:

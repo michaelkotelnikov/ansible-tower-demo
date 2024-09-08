@@ -1,0 +1,3 @@
+PyYAML >= 3.11
+jsonpatch
+kubernetes >= 28.1.0
