@@ -15,6 +15,7 @@
     validate_certs: false
 #    username: "{{ ocp_user }}"
 #    password: "{{ ocp_password }}"
+    host: "https://api.cluster-4whxk.dynamic.redhatworkshops.io:6443"
     api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
     labels:
       app: test
