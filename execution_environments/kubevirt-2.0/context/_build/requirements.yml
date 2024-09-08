@@ -1,4 +1,4 @@
 ---
 collections:
   - name: kubevirt.core
-  - name: k8s_auth
+  - name: community.okd
