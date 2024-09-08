@@ -1,4 +1,9 @@
 ---
+- name: Install collection kubevirt.core
+  community.general.ansible_galaxy_install:
+    type: collection
+    name: kubevirt.core
+
 - name: "Create VM"
   kubevirt.core.kubevirt_vm:
     state: present
