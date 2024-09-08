@@ -3,6 +3,7 @@
   k8s_auth:
     username: admin
     password: "{{ ocp_password }}"
+    host: "https://api.cluster-4whxk.dynamic.redhatworkshops.io:6443"
   register: k8s_auth_results
 
 - name: "Create VM"
@@ -10,7 +11,6 @@
     state: present
     name: testvm
     namespace: kubevirt-ansible
-    host: "https://api.cluster-4whxk.dynamic.redhatworkshops.io:6443"
     validate_certs: false
 #    username: "{{ ocp_user }}"
 #    password: "{{ ocp_password }}"
