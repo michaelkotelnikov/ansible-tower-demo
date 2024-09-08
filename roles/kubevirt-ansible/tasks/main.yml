@@ -1,0 +1,35 @@
+---
+- name: "Create VM"
+  kubevirt.core.kubevirt_vm:
+    state: present
+    name: testvm
+    namespace: kubevirt-ansible
+    username: "{{ ocp_user }}"
+    password: "{{ ocp_password }}"
+    labels:
+      app: test
+    instancetype:
+      name: u1.medium
+    preference:
+      name: fedora
+    spec:
+      domain:
+        devices:
+          interfaces:
+          - name: default
+            masquerade: {}
+      networks:
+      - name: default
+        pod: {}
+      volumes:
+      - containerDisk:
+          image: quay.io/containerdisks/fedora:latest
+        name: containerdisk
+      - cloudInitConfigDrive:
+          userData: |-
+            #cloud-config
+              user: fedora
+              password: redhat
+              chpasswd: { expire: False }
+        name: cloudinit
+    wait: yes
