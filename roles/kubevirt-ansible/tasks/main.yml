@@ -4,6 +4,7 @@
     username: admin
     password: "{{ ocp_password }}"
     host: "https://api.cluster-4whxk.dynamic.redhatworkshops.io:6443"
+    validate_certs: no
   register: k8s_auth_results
 
 - name: "Create VM"
