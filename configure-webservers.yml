@@ -1,6 +1,6 @@
 ---
 - hosts: web-servers 
   roles:
-  - redhat-subscription-role
+#  - redhat-subscription-role
   - configure-webserver
   serial: 1
