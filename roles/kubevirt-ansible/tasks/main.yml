@@ -10,7 +10,7 @@
 - name: "Create VM"
   kubevirt.core.kubevirt_vm:
     state: present
-    name: testvm
+    name: {{ vm_name }}
     namespace: kubevirt-ansible
     validate_certs: false
     host: "{{ ocp_url }}"
@@ -37,8 +37,16 @@
       - cloudInitConfigDrive:
           userData: |-
             #cloud-config
-              user: fedora
-              password: redhat
+              user: {{ vm_user }}
+              password: {{ vm_password }}
               chpasswd: { expire: False }
         name: cloudinit
     wait: yes
+
+- name: "Add the vm to the inventory if needed"
+  add_host:
+    hostname: "{{ vm_name }}"
+    ansible_host: "{{ vm_name }}"
+    ansible_user: "{{ vm_user }}"
+    ansible_password: "{{ vm_password }}"
+    groups: "{{ vm_groups }}"

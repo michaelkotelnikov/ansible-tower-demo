@@ -1,0 +1,7 @@
+---
+vm_name: vmhttpd01
+vm_user: fedora
+vm_password: redhat
+vm_groups:
+  - webservers
+  - httpd
