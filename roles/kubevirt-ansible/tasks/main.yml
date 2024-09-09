@@ -10,7 +10,7 @@
 - name: "Create VM"
   kubevirt.core.kubevirt_vm:
     state: present
-    name: {{ vm_name }}
+    name: "{{ vm_name }}"
     namespace: kubevirt-ansible
     validate_certs: false
     host: "{{ ocp_url }}"
@@ -37,8 +37,8 @@
       - cloudInitConfigDrive:
           userData: |-
             #cloud-config
-              user: {{ vm_user }}
-              password: {{ vm_password }}
+              user: "{{ vm_user }}"
+              password: "{{ vm_password }}"
               chpasswd: { expire: False }
         name: cloudinit
     wait: yes
