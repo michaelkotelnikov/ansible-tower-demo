@@ -1,0 +1,14 @@
+---
+kubevirt_vm:
+  - name: vmhttpd01
+    user: fedora
+    password: redhat
+    groups:
+      - webservers
+    namespace: kubevirt-ansible
+  - name: vmhttpd02
+    user: fedora
+    password: redhat
+    groups:
+      - webservers
+    namespace: kubevirt-ansible

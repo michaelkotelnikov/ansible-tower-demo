@@ -7,59 +7,9 @@
     validate_certs: false
   register: k8s_auth_results
 
-- name: "Create VM"
-  kubevirt.core.kubevirt_vm:
-    state: present
-    name: "{{ vm_name }}"
-    namespace: "{{ vm_namespace }}"
-    validate_certs: false
-    host: "{{ ocp_url }}"
-    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
-    instancetype:
-      name: u1.medium
-    preference:
-      name: fedora
-    spec:
-      domain:
-        devices:
-          interfaces:
-          - name: default
-            masquerade: {}
-      networks:
-      - name: default
-        pod: {}
-      volumes:
-      - containerDisk:
-          image: quay.io/containerdisks/fedora:latest
-        name: containerdisk
-      - cloudInitConfigDrive:
-          userData: |-
-            #cloud-config
-              user: "{{ vm_user }}"
-              password: "{{ vm_password }}"
-              chpasswd: { expire: False }
-              ssh_pwauth: True
-        name: cloudinit
-    wait: yes
-
-- name: Expose ssh port for the VM
-  kubernetes.core.k8s_service:
-    validate_certs: false
-    host: "{{ ocp_url }}"
-    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
-    state: present
-    name: "{{ vm_name }}-ssh"
-    namespace: "{{ vm_namespace }}"
-    ports:
-    - port: 22
-      protocol: TCP
-    selector:
-      vm.kubevirt.io/name: "{{ vm_name }}"
-
-- name: "Add the vm to the inventory if needed"
-  add_host:
-    hostname: "{{ vm_name }}"
-    ansible_host: "{{ vm_name }}-ssh.{{ vm_namespace }}.svc.cluster.local"
-    ansible_user: "{{ vm_user }}"
-    ansible_password: "{{ vm_password }}"
-    groups: "{{ vm_groups }}"
+- name: "Deploy all vms"
+  include_tasks:
+    file: configure-vm.yml
+  loop_control:
+    loop_var: kubevirt_vm_definition
+  loop: "{{ kubevirt_vm }}"

@@ -1,0 +1,61 @@
+---
+- name: "Create VM"
+  kubevirt.core.kubevirt_vm:
+    state: present
+    name: "{{ kubevirt_vm_definition.name }}"
+    namespace: "{{ kubevirt_vm_definition.namespace }}"
+    validate_certs: false
+    host: "{{ ocp_url }}"
+    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+    instancetype:
+      name: u1.medium
+    preference:
+      name: fedora
+    spec:
+      domain:
+        devices:
+          interfaces:
+          - name: default
+            masquerade: {}
+      networks:
+      - name: default
+        pod: {}
+      volumes:
+      - containerDisk:
+          image: quay.io/containerdisks/fedora:latest
+        name: containerdisk
+      - cloudInitConfigDrive:
+          userData: |-
+            #cloud-config
+              user: "{{ kubevirt_vm_definition.user }}"
+              password: "{{ kubevirt_vm_definition.password }}"
+              chpasswd: { expire: False }
+              ssh_pwauth: True
+        name: cloudinit
+    wait: yes
+
+- name: Expose ssh port for the VM
+  kubernetes.core.k8s_service:
+    validate_certs: false
+    host: "{{ ocp_url }}"
+    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+    state: present
+    name: "{{ kubevirt_vm_definition.name }}-ssh"
+    namespace: "{{ kubevirt_vm_definition.namespace }}"
+    ports:
+    - port: 22
+      protocol: TCP
+    selector:
+      vm.kubevirt.io/name: "{{ kubevirt_vm_definition.name }}"
+
+- name: "Add the vm to the inventory if needed"
+  add_host:
+    hostname: "{{ kubevirt_vm_definition.name }}"
+    ansible_host: "{{ kubevirt_vm_definition.name }}-ssh.{{ kubevirt_vm_definition.namespace }}.svc.cluster.local"
+    ansible_user: "{{ kubevirt_vm_definition.user }}"
+    ansible_password: "{{ kubevirt_vm_definition.password }}"
+    groups: "{{ kubevirt_vm_definition.groups }}"
+
+- name: "Wait for VM to configure"
+  pause:
+    seconds: 10
