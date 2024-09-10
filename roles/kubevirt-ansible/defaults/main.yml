@@ -5,3 +5,4 @@ vm_password: redhat
 vm_groups:
   - webservers
   - httpd
+vm_namespace: kubevirt-ansible
