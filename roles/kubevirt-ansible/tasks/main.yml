@@ -40,6 +40,7 @@
               user: "{{ vm_user }}"
               password: "{{ vm_password }}"
               chpasswd: { expire: False }
+              ssh_pwauth: True
         name: cloudinit
     wait: yes
 
