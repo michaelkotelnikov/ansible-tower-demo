@@ -1,5 +1,5 @@
 ---
-- name: "Create VM"
+- name: "Create VM - {{ kubevirt_vm_definition.name }}"
   kubevirt.core.kubevirt_vm:
     state: present
     name: "{{ kubevirt_vm_definition.name }}"
@@ -34,7 +34,7 @@
         name: cloudinit
     wait: yes
 
-- name: Expose ssh port for the VM
+- name: "Expose ssh port for VM - {{ kubevirt_vm_definition.name }}"
   kubernetes.core.k8s_service:
     validate_certs: false
     host: "{{ ocp_url }}"
@@ -48,7 +48,7 @@
     selector:
       vm.kubevirt.io/name: "{{ kubevirt_vm_definition.name }}"
 
-- name: "Add the vm to the inventory if needed"
+- name: "Add the VM - {{ kubevirt_vm_definition.name }} to the inventory"
   add_host:
     hostname: "{{ kubevirt_vm_definition.name }}"
     ansible_host: "{{ kubevirt_vm_definition.name }}-ssh.{{ kubevirt_vm_definition.namespace }}.svc.cluster.local"
@@ -56,6 +56,6 @@
     ansible_password: "{{ kubevirt_vm_definition.password }}"
     groups: "{{ kubevirt_vm_definition.groups }}"
 
-- name: "Wait for VM to configure"
+- name: "Wait for VM - {{ kubevirt_vm_definition.name }} to configure"
   pause:
     seconds: 60
