@@ -58,4 +58,4 @@
 
 - name: "Wait for VM to configure"
   pause:
-    seconds: 10
+    seconds: 30
