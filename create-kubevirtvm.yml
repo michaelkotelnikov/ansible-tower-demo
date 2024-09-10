@@ -7,5 +7,3 @@
   roles:
   - configure-webserver
   become: true
-  retries: 3
-  delay: 3

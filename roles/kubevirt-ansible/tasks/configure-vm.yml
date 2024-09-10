@@ -55,3 +55,7 @@
     ansible_user: "{{ kubevirt_vm_definition.user }}"
     ansible_password: "{{ kubevirt_vm_definition.password }}"
     groups: "{{ kubevirt_vm_definition.groups }}"
+
+- name: "Wait for VM to configure"
+  pause:
+    seconds: 10

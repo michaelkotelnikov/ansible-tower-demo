@@ -7,7 +7,7 @@
     validate_certs: false
   register: k8s_auth_results
 
-- name: "Deploy all vms"
+- name: "Deploy all VMs"
   include_tasks:
     file: configure-vm.yml
   loop_control:
