@@ -45,6 +45,9 @@
 
 - name: Expose ssh port for the VM
   kubernetes.core.k8s_service:
+    validate_certs: false
+    host: "{{ ocp_url }}"
+    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
     state: present
     name: "{{ vm_name }}-ssh"
     namespace: "{{ vm_namespace }}"
