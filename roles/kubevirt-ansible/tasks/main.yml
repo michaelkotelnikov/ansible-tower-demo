@@ -15,8 +15,6 @@
     validate_certs: false
     host: "{{ ocp_url }}"
     api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
-    labels:
-      app: test
     instancetype:
       name: u1.medium
     preference:
