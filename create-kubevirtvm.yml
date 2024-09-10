@@ -5,4 +5,4 @@
 
 - hosts: webservers
   roles:
-  - create-file
+  - configure-webserver
