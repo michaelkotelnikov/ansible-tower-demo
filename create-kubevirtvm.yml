@@ -6,3 +6,4 @@
 - hosts: webservers
   roles:
   - configure-webserver
+  become: true
