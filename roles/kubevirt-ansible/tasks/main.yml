@@ -46,7 +46,7 @@
 - name: Expose ssh port for the VM
   kubernetes.core.k8s_service:
     state: present
-    name: "{{ vm_name }}"-ssh
+    name: "{{ vm_name }}-ssh"
     namespace: "{{ vm_namespace }}"
     ports:
     - port: 22
