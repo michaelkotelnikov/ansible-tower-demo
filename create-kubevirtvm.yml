@@ -6,4 +6,5 @@
 - hosts: webservers
   roles:
   - configure-webserver
+  serial: 1
   become: true
