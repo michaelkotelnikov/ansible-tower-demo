@@ -41,13 +41,13 @@
     immediate: yes
   when: "'firewalld' in ansible_facts.packages"
 
-- name: "Expose ssh port for VM - {{ inventory_hostname_short }}"
+- name: "Expose web port for VM - {{ inventory_hostname_short }}"
   kubernetes.core.k8s_service:
     validate_certs: false
     host: "{{ ocp_url }}"
     api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
     state: present
-    name: "{{ inventory_hostname_short }}-ssh"
+    name: "{{ inventory_hostname_short }}-web"
     namespace: "{{ namespace }}"
     ports:
     - port: 80
