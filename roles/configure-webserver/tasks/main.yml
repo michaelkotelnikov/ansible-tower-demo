@@ -41,6 +41,14 @@
     immediate: yes
   when: "'firewalld' in ansible_facts.packages"
 
+- name: Log in (obtain access token)
+  community.okd.openshift_auth:
+    username: "{{ ocp_user }}"
+    password: "{{ ocp_password }}"
+    host: "{{ ocp_url }}"
+    validate_certs: false
+  register: k8s_auth_results
+
 - name: "Expose web port for VM - {{ inventory_hostname_short }}"
   kubernetes.core.k8s_service:
     validate_certs: false
