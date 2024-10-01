@@ -33,32 +33,27 @@
   package_facts:
     manager: "auto"
 
-- name: Add http service to firewalld
-  firewalld:
-    permanent: yes
-    port: "{{ httpd_firewall_port }}/{{ httpd_firewall_protocol }}"
-    state: enabled
-    immediate: yes
-  when: "'firewalld' in ansible_facts.packages"
+- name: Create K8S resources
+  block:
+  - name: Add http service to firewalld
+    firewalld:
+      permanent: yes
+      port: "{{ httpd_firewall_port }}/{{ httpd_firewall_protocol }}"
+      state: enabled
+      immediate: yes
+    when: "'firewalld' in ansible_facts.packages"
 
-- name: Log in (obtain access token)
-  community.okd.openshift_auth:
-    username: "{{ ocp_user }}"
-    password: "{{ ocp_password }}"
-    host: "{{ ocp_url }}"
-    validate_certs: false
-  register: k8s_auth_results
-
-- name: "Expose web port for VM - {{ inventory_hostname_short }}"
-  kubernetes.core.k8s_service:
-    validate_certs: false
-    host: "{{ ocp_url }}"
-    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
-    state: present
-    name: "{{ inventory_hostname_short }}-web"
-    namespace: "{{ namespace }}"
-    ports:
-    - port: 80
-      protocol: TCP
-    selector:
-      vm.kubevirt.io/name: "{{ inventory_hostname_short }}"
+  - name: "Expose web port for VM - {{ inventory_hostname_short }}"
+    kubernetes.core.k8s_service:
+      validate_certs: false
+      host: "{{ ocp_url }}"
+      api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+      state: present
+      name: "{{ inventory_hostname_short }}-web"
+      namespace: "{{ namespace }}"
+      ports:
+      - port: 80
+        protocol: TCP
+      selector:
+        vm.kubevirt.io/name: "{{ inventory_hostname_short }}"
+  delegate_to: localhost
