@@ -1,7 +1,11 @@
 ---
-- hosts: web-servers 
+- hosts: webservers 
   roles:
 #   - redhat-subscription-role
-  - configure-webserver
+   - configure-webserver
   serial: 1
   become: true
+
+- hosts: localhost
+  roles:
+  - configure-openshift-web-service

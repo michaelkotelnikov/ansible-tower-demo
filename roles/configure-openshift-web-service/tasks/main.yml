@@ -1,0 +1,23 @@
+- name: Log in (obtain access token)
+  community.okd.openshift_auth:
+    username: "{{ ocp_user }}"
+    password: "{{ ocp_password }}"
+    host: "{{ ocp_url }}"
+    validate_certs: false
+  register: k8s_auth_results
+
+- name: "Expose web port for VM - {{ item }}"
+  kubernetes.core.k8s_service:
+    validate_certs: false
+    host: "{{ ocp_url }}"
+    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+    state: present
+    name: "{{ item }}-web"
+    namespace: "{{ namespace }}"
+    ports:
+    - port: 80
+      protocol: TCP
+    selector:
+      vm.kubevirt.io/name: "{{ item }}"
+  loop: "{{ groups['webservers'] }}"
+

@@ -8,3 +8,7 @@
   - configure-webserver
   serial: 1
   become: true
+
+- hosts: localhost
+  roles:
+  - configure-openshift-web-service
