@@ -12,3 +12,5 @@ kubevirt_vm:
     groups:
       - webservers
     namespace: kubevirt-ansible
+
+namespace: kubevirt-ansible
