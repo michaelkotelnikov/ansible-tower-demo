@@ -6,7 +6,7 @@
     validate_certs: false
   register: k8s_auth_results
 
-- name: "Expose web port for VM"
+- name: "Expose web port for VMs"
   kubernetes.core.k8s_service:
     validate_certs: false
     host: "{{ ocp_url }}"
@@ -20,4 +20,31 @@
     selector:
       vm.kubevirt.io/name: "{{ item }}"
   loop: "{{ groups['webservers'] }}"
+
+- name: "Expose web port for VMs"
+  kubernetes.core.k8s_service:
+    validate_certs: false
+    host: "{{ ocp_url }}"
+    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+    state: present
+    name: "{{ item }}-web"
+    namespace: "{{ namespace }}"
+    ports:
+    - port: "{{ haproxy_firewall_port }}"
+      protocol: TCP
+    selector:
+      vm.kubevirt.io/name: "{{ item }}"
+  loop: "{{ groups['haproxy'] }}"
+
+- name: Expose the insecure hello-world service externally
+  community.okd.openshift_route:
+    validate_certs: false
+    host: "{{ ocp_url }}"
+    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+    service: "{{ item }}-web"
+    namespace: "{{ namespace }}"
+    annotations:
+      haproxy.router.openshift.io/balance: roundrobin
+    termination: "edge"
+  loop: "{{ groups['haproxy'] }}"
 

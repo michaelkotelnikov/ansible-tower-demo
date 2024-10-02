@@ -66,14 +66,16 @@ resolvers openshiftdns
 #---------------------------------------------------------------------
 # main frontend which proxys to the backends
 #---------------------------------------------------------------------
-frontend  main *:5000
+frontend  main 
+    bind *:5000
     acl url_static       path_beg       -i /static /images /javascript /stylesheets
     acl url_static       path_end       -i .jpg .gif .png .css .js
 
     use_backend static          if url_static
     default_backend             app
 
-frontend webapp *:8080
+frontend webapp
+    bind *:{{ haproxy_firewall_port }}
     default_backend	 	web_servers
 
 #---------------------------------------------------------------------
