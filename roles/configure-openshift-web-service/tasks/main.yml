@@ -6,7 +6,7 @@
     validate_certs: false
   register: k8s_auth_results
 
-- name: "Expose web port for VM - {{ item }}"
+- name: "Expose web port for VM"
   kubernetes.core.k8s_service:
     validate_certs: false
     host: "{{ ocp_url }}"
@@ -15,7 +15,7 @@
     name: "{{ item }}-web"
     namespace: "{{ namespace }}"
     ports:
-    - port: 80
+    - port: "{{ httpd_firewall_port }}"
       protocol: TCP
     selector:
       vm.kubevirt.io/name: "{{ item }}"
