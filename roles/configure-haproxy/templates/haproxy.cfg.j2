@@ -57,6 +57,12 @@ defaults
     timeout check           10s
     maxconn                 3000
 
+resolvers openshiftdns
+    nameserver dns1 127.0.0.53:53
+    resolve_retries 3
+    timeout retry 1s
+    hold valid 10s
+
 #---------------------------------------------------------------------
 # main frontend which proxys to the backends
 #---------------------------------------------------------------------
@@ -92,6 +98,7 @@ backend app
 #---------------------------------------------------------------------
 backend web_servers
     balance roundrobin
+    default-server init-addr none resolvers openshiftdns resolve-prefer ipv4
 {% for httpd_server in groups['webservers'] %}
     server {{ httpd_server }} {{ hostvars[httpd_server]['ansible_facts']['nodename'] }}-web.{{ namespace }}.svc.cluster.local:{{ httpd_firewall_port }}
 {% endfor %}
