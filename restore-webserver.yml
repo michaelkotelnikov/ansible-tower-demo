@@ -2,3 +2,4 @@
 - hosts: web-servers
   roles:
   - restore-webserver
+  become: true
