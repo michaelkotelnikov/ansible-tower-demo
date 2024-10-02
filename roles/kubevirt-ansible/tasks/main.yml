@@ -15,6 +15,7 @@
     name: "{{ namespace }}"
     api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
     host: "{{ ocp_url }}"
+    validate_certs: false
 
 - name: "Deploy all VMs"
   include_tasks:
