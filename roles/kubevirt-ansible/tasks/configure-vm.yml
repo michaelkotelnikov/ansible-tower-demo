@@ -1,7 +1,7 @@
 ---
 - name: "Create VM - {{ kubevirt_vm_definition.name }}"
   kubevirt.core.kubevirt_vm:
-    state: present
+    state: running
     name: "{{ kubevirt_vm_definition.name }}"
     namespace: "{{ kubevirt_vm_definition.namespace }}"
     validate_certs: false
