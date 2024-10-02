@@ -1,6 +1,4 @@
 ---
 - hosts: localhost
-  tasks:
-    - name: Debug name
-      debug:
-        msg: "The hostname of {{ hostvars['localhost'] }}"
+  roles:
+  - configure-openshift-web-service

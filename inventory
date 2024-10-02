@@ -3,3 +3,7 @@ localhost
 
 [locals:vars]
 ansible_connection=local
+
+[webservers]
+vmhttpd01
+vmhttpd02
