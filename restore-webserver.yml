@@ -1,5 +1,5 @@
 ---
-- hosts: web-servers
+- hosts: webservers
   roles:
   - restore-webserver
   become: true

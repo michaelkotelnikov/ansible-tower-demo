@@ -1,5 +1,5 @@
 ---
-- hosts: haproxy-servers
+- hosts: haproxy
   roles:
   - remove-faulty-server
   become: true
