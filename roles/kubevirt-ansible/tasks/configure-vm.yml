@@ -48,6 +48,10 @@
     selector:
       vm.kubevirt.io/name: "{{ kubevirt_vm_definition.name }}"
 
+- name: "Wait for VM - {{ kubevirt_vm_definition.name }} to configure"
+  pause:
+    seconds: 60
+
 - name: "Add the VM - {{ kubevirt_vm_definition.name }} to the inventory"
   add_host:
     hostname: "{{ kubevirt_vm_definition.name }}"
@@ -56,6 +60,3 @@
     ansible_password: "{{ kubevirt_vm_definition.password }}"
     groups: "{{ kubevirt_vm_definition.groups }}"
 
-- name: "Wait for VM - {{ kubevirt_vm_definition.name }} to configure"
-  pause:
-    seconds: 60
