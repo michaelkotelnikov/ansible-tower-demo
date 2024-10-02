@@ -40,4 +40,8 @@
     state: enabled
     immediate: yes
   when: "'firewalld' in ansible_facts.packages"
+
+- name: Test facts
+  debug:
+    msg: "{{ hostvars['vmhttpd01'] }}"
   
