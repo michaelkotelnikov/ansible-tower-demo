@@ -12,3 +12,8 @@
 - hosts: localhost
   roles:
   - configure-openshift-web-service
+
+- hosts: haproxy
+  roles:
+  - configure-haproxy
+  become: true

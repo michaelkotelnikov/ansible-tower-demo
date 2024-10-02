@@ -1,5 +1,5 @@
 ---
-- hosts: haproxy-servers
+- hosts: haproxy
   roles:
 #   - redhat-subscription-role
   - configure-haproxy
