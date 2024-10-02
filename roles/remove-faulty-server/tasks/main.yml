@@ -4,8 +4,8 @@
     gather_timeout: "10"
   delegate_to: "{{ item }}"
   delegate_facts: true
-  loop: "{{ groups['web-servers'] }}"
+  loop: "{{ groups['webservers'] }}"
 
 - name: Treat faulty web servers
   include_tasks: remove-server-from-haproxy.yml
-  loop: "{{ groups['web-servers'] }}"
+  loop: "{{ groups['webservers'] }}"
