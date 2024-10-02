@@ -36,7 +36,7 @@
       vm.kubevirt.io/name: "{{ item }}"
   loop: "{{ groups['haproxy'] }}"
 
-- name: Expose the insecure hello-world service externally
+- name: Expose HAProxy Externally
   community.okd.openshift_route:
     validate_certs: false
     host: "{{ ocp_url }}"
