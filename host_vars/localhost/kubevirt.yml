@@ -18,5 +18,3 @@ kubevirt_vm:
     groups:
       - haproxy
     namespace: kubevirt-ansible
-
-namespace: kubevirt-ansible
