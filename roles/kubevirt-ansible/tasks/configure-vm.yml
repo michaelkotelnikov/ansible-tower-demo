@@ -1,4 +1,14 @@
 ---
+- name: Get a list of all service objects
+  kubernetes.core.k8s_info:
+    api_version: "kubevirt.io/v1"
+    kind: VirtualMachine
+    namespace: kubevirt-ansible
+  register: vm_list
+
+- debug:
+    msg: "{{ vm_list }}"
+
 - name: "Create VM - {{ kubevirt_vm_definition.name }}"
   kubevirt.core.kubevirt_vm:
     state: present
