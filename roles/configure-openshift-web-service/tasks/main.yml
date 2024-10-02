@@ -6,6 +6,18 @@
     validate_certs: false
   register: k8s_auth_results
 
+- debug:
+    msg: "{{ httpd_firewall_port | int | type_debug }}"
+
+- debug:
+    var: httpd_firewall_port | int | type_debug
+
+- debug:
+    msg: "{{ httpd_firewall_port | type_debug }}"
+
+- debug:
+    var: httpd_firewall_port | type_debug
+
 - name: "Expose web port for VM"
   kubernetes.core.k8s_service:
     validate_certs: false
