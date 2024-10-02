@@ -15,7 +15,7 @@
     name: "{{ item }}-web"
     namespace: "{{ namespace }}"
     ports:
-    - port: "{{ httpd_firewall_port }}"
+    - port: "{{ httpd_firewall_port | int }}"
       protocol: TCP
     selector:
       vm.kubevirt.io/name: "{{ item }}"
