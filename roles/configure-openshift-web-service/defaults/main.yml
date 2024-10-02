@@ -1,1 +1,1 @@
-httpd_firewall_port: "80"
+httpd_firewall_port: 80
