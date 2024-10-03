@@ -11,6 +11,6 @@ spec:
       for: 20s
       expr: node_selinux_current_mode{prometheus="openshift-user-workload-monitoring/user-workload"} < 1
       labels:
-        severity: warning 
+        severity: critical 
       annotations:
         message: User Disabled SELinux in VM
