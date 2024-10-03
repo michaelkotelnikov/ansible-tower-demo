@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: selinux-alert
+  namespace: kubevirt-ansible
+spec:
+  groups:
+  - name: virtualmachines
+    rules:
+    - alert: SELinuxAlert 
+      for: 20s
+      expr: node_selinux_current_mode{prometheus="openshift-user-workload-monitoring/user-workload"} < 1
+      labels:
+        severity: warning 
+      annotations:
+        message: User Disabled SELinux in VM

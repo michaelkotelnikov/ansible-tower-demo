@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: vmhttpd02-exporter
+  namespace: kubevirt-ansible
+spec:
+  selector:
+    matchLabels:
+      app: vmhttpd02-exporter
+  endpoints:
+    - port: vmhttpd02-exporter
+      interval: 15s
+  targetLabels:
+    - vm

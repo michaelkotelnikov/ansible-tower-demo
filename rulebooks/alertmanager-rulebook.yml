@@ -7,7 +7,7 @@
         port: 8000
   rules:
     - name: restart web server
-      condition: event.alert.labels.job == "fastapi" and event.alert.status == "firing"
+      condition: event.alert.status == "firing"
       action:
         run_job_template:
           name: "Create VirtaulMachines"

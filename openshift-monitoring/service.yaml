@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vmhttpd02-exporter
+  namespace: kubevirt-ansible
+  labels:
+    app: vmhttpd02-exporter
+    vm: vmhttpd02
+spec:
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 9100
+    name: vmhttpd02-exporter
+    protocol: TCP
+    targetPort: 9100
+  selector:
+    vm.kubevirt.io/name: vmhttpd02
+  sessionAffinity: None
+  type: ClusterIP
