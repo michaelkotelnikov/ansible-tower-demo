@@ -1,0 +1,3 @@
+- name: Enable SELinux in firing host
+  shell: "setenforce 1"
+  delegate_to: "{{ item.labels.vm }}"

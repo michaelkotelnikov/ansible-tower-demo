@@ -1,7 +1,5 @@
 - name: Enable SELinux
   hosts: localhost
-  tasks:
-  - debug:
-      msg: "{{ alert_status }}"
-  - debug:
-      msg: "{{ ansible_eda.event.payload.alerts }}"
+  roles:
+  - enable-selinux
+  become: true

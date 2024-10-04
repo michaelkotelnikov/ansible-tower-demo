@@ -1,0 +1,7 @@
+- name: Print Alerts
+  debug:
+    msg: "{{ ansible_eda.event.payload.alerts }}"
+ 
+- name: Delegate to alert handling task
+  include_tasks: enable-selinux.yml
+  loop: "{{ ansible_eda.event.payload.alerts }}"
