@@ -10,6 +10,6 @@
       condition: event.payload.status == "firing"
       action:
         run_job_template:
-          name: "Create VirtualMachines"
+          name: "Enable SELinux"
           organization: "Platforms Team"
           set_facts: true
