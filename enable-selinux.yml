@@ -2,6 +2,4 @@
   hosts: localhost
   tasks:
   - debug:
-      msg: "{{ message }}"
-  - debug:
-      msg: "{{ message_content }}"
+      msg: "{{ extra_vars }}"
