@@ -12,6 +12,7 @@
   ansible.builtin.unarchive:
     src: /opt/node-exporter/node_exporter-1.6.1.linux-amd64.tar.gz
     dest: /opt/node-exporter
+    remote_src: true
   
 - name: Copy node exporter binary
   ansible.builtin.copy:
