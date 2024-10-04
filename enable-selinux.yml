@@ -1,0 +1,5 @@
+- name: Enable SELinux
+  hosts: localhost
+  tasks:
+  - debug:
+      msg: "{{ event }}"
