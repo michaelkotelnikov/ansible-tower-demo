@@ -1,0 +1,31 @@
+- name: Create node exporter directory
+  ansible.builtin.file:
+    path: /opt/node-exporter
+    state: directory
+
+- name: Download node exporter binary
+  ansible.builtin.get_url:
+    url: https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz
+    dest: /opt/node-exporter/node_exporter-1.6.1.linux-amd64.tar.gz
+
+- name: Open downloaded tar file
+  ansible.builtin.unarchive:
+    src: /opt/node-exporter/node_exporter-1.6.1.linux-amd64.tar.gz
+    dest: /opt/node-exporter
+  
+- name: Copy node exporter binary
+  ansible.builtin.copy:
+    src: /opt/node-exporter/node_exporter-1.6.1.linux-amd64/node_exporter
+    dest: /usr/local/bin/node_exporter
+
+- name: Create node exporter daemon
+  template:
+    src: node-exporter.service.j2
+    dest: /etc/systemd/system/node-exporter.service
+
+- name: Start node exporter
+  ansible.builtin.systemd_service:
+    state: started
+    daemon_reload: true
+    name: node-exporter
+    enabled: true
