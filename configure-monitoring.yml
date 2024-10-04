@@ -3,3 +3,7 @@
   roles:
   - configure-nodeexporter
   become: true
+
+- hosts: localhost
+  roles:
+  - configure-openshift-monitoring

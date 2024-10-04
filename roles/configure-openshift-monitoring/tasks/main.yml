@@ -1,0 +1,95 @@
+- name: Log in (obtain access token)
+  community.okd.openshift_auth:
+    username: "{{ ocp_user }}"
+    password: "{{ ocp_password }}"
+    host: "{{ ocp_url }}"
+    validate_certs: false
+  register: k8s_auth_results
+
+- name: "Create Monitoring ConfigMap"
+  kubernetes.core.k8s:
+    validate_certs: false
+    host: "{{ ocp_url }}"
+    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+    state: present
+    definition:
+      apiVersion: v1
+      data:
+        config.yaml: |
+          enableUserWorkload: true
+      kind: ConfigMap
+      metadata:
+        name: cluster-monitoring-config
+        namespace: openshift-monitoring
+
+- name: "Expose metrics port for VMs"
+  kubernetes.core.k8s:
+    validate_certs: false
+    host: "{{ ocp_url }}"
+    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: "{{ item }}-exporter"
+        namespace: "{{ namespace }}"
+        labels:
+          vm: "{{ item }}"
+          app: "{{ item }}-exporter"
+      spec:
+        selector:
+          vm.kubevirt.io/name: "{{ item }}"
+        ports:
+        - port: "{{ node_exporter_port }}"
+          name: "{{ item }}-exporter"
+          protocol: TCP
+          targetPort: "{{ node_exporter_port }}"
+  loop: "{{ groups['webservers'] }}"
+
+- name: "Create ServiceMonitor for VMs"
+  kubernetes.core.k8s:
+    validate_certs: false
+    host: "{{ ocp_url }}"
+    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+    state: present
+    definition:
+      apiVersion: monitoring.coreos.com/v1
+      kind: ServiceMonitor
+      metadata:
+        name: "{{ item }}-exporter"
+        namespace: "{{ namespace }}"
+      spec:
+        selector:
+          matchLabels:
+            app: "{{ item }}-exporter"
+        endpoints:
+          - port: "{{ item }}-exporter"
+            interval: 15s
+        targetLabels:
+          - vm
+  loop: "{{ groups['webservers'] }}"
+
+- name: "Create PrometheusRule for SELinux"
+  kubernetes.core.k8s:
+    validate_certs: false
+    host: "{{ ocp_url }}"
+    api_key: "{{ k8s_auth_results.k8s_auth.api_key }}"
+    state: present
+    definition:
+      apiVersion: monitoring.coreos.com/v1
+      kind: PrometheusRule
+      metadata:
+        name: selinux-alert
+        namespace: "{{ namespace }}"
+      spec:
+        groups:
+        - name: virtualmachines
+          rules:
+          - alert: SELinuxAlert 
+            for: 20s
+            expr: node_selinux_current_mode{prometheus="openshift-user-workload-monitoring/user-workload"} < 1
+            labels:
+              severity: critical 
+            annotations:
+              message: User Disabled SELinux in VM
