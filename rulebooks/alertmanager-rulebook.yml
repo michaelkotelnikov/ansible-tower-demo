@@ -6,7 +6,7 @@
         host: 0.0.0.0
         port: 5000
   rules:
-    - name: restart web server
+    - name: enable selinux
       condition: event.payload.status == "firing"
       actions:
         - debug:
