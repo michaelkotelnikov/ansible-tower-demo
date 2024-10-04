@@ -8,12 +8,15 @@
   rules:
     - name: restart web server
       condition: event.payload.status == "firing"
-      action:
-        run_job_template:
-          name: "Enable SELinux"
-          organization: "Platforms Team"
-          set_facts: true
-          extra_vars:
-            message_content: "{{ event.payload.status }}"
-            eda_message: "Hi"
+      actions:
+        - debug:
+            msg: "{{ event.payload }}"
+        - run_job_template:
+            name: "Enable SELinux"
+            organization: "Platforms Team"
+            set_facts: true
+            job_args:
+              extra_vars:
+                message_content: "{{ event.payload.status }}"
+                message: "Hi"
               
