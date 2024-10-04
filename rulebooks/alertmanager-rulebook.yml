@@ -10,6 +10,6 @@
       condition: event.payload.status == "firing"
       action:
         run_job_template:
-          name: "Create VirtaulMachines"
+          name: "Create VirtualMachines"
           organization: "Platforms Team"
           set_facts: true
