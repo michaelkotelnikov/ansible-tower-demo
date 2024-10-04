@@ -3,3 +3,5 @@
   tasks:
   - debug:
       msg: "{{ alert_status }}"
+  - debug:
+      msg: "{{ ansible_eda.event.payload.alerts }}"
