@@ -15,5 +15,5 @@
           set_facts: true
           job_args:
             extra_vars:
-              message_content: "{{ event.payload }}"
+              message_content: "{{ event.payload.message }}"
               
