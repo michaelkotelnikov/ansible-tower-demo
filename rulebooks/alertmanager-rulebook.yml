@@ -14,8 +14,8 @@
         - run_job_template:
             name: "Enable SELinux"
             organization: "Platforms Team"
+            set_facts: true
             job_args:
               extra_vars:
-                message_content: "{{ event.payload.status }}"
-                message: "Hi"
+                alert_status: "{{ event.payload.status }}"
               

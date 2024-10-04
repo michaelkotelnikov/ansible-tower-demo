@@ -2,4 +2,4 @@
   hosts: localhost
   tasks:
   - debug:
-      msg: "{{ extra_vars }}"
+      msg: "{{ alert_status }}"
