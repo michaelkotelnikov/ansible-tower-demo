@@ -19,6 +19,7 @@
     src: /opt/node-exporter/node_exporter-1.6.1.linux-amd64/node_exporter
     dest: /usr/local/bin/node_exporter
     remote_src: true
+    mode: '0744'
 
 - name: Create node exporter daemon
   template:
