@@ -15,5 +15,6 @@
           set_facts: true
           job_args:
             extra_vars:
-              message_content: "{{ event.payload.message }}"
+              message_content: "{{ event.payload.status }}"
+              eda_message: "Hi"
               

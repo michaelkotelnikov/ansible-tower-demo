@@ -2,4 +2,4 @@
   hosts: localhost
   tasks:
   - debug:
-      msg: "{{ message_content }}"
+      msg: "{{ eda_message }}"
