@@ -1,4 +1,4 @@
-- name: Automatic Remediation of a webserver
+- name: Automatic Remediation of alertmanager
   hosts: all
   sources:
     - name: listen for alerts
