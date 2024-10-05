@@ -90,3 +90,15 @@
       ansible_user: "{{ kubevirt_vm_definition.user }}"
       ansible_password: "{{ kubevirt_vm_definition.password }}"
 
+- name: "Add the VM - {{ kubevirt_vm_definition.name }} to AAP group"
+  awx.awx.group:
+    controller_host: "{{ controller_host }}"
+    controller_oauthtoken: "{{ aap_token }}"
+    validate_certs: false
+    name: "{{ item }}"
+    inventory: Platform Inventory
+    state: present
+    hosts:
+      - "{{ kubevirt_vm_definition.name }}"
+    preserve_existing_hosts: True
+  loop: "{{ kubevirt_vm_definition.groups }}"
