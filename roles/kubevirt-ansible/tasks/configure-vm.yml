@@ -78,12 +78,12 @@
     groups: "{{ kubevirt_vm_definition.groups }}"
 
 - name: "Add the VM - {{ kubevirt_vm_definition.name }} to AAP inventory"
-  host:
+  awx.awx.host:
     controller_host: "{{ controller_host }}"
     controller_oauthtoken: "{{ aap_token }}"
     validate_certs: false
     name: "{{ kubevirt_vm_definition.name }}"
-    inventory: "Platform Inventory"
+    inventory: Platform Inventory
     state: present
     variables:
       ansible_host: "{{ kubevirt_vm_definition.name }}-ssh.{{ kubevirt_vm_definition.namespace }}.svc.cluster.local"
