@@ -18,7 +18,7 @@
     validate_certs: false
 
 - name: Create inventory in AAP
-  inventory:
+  awx.awx.inventory:
     controller_host: "{{ controller_host }}"
     controller_oauthtoken: "{{ aap_token }}"
     validate_certs: false
