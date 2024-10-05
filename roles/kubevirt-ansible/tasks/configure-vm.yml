@@ -83,7 +83,7 @@
     controller_oauthtoken: "{{ aap_token }}"
     validate_certs: false
     name: "{{ kubevirt_vm_definition.name }}"
-    inventory: Platform Inventory
+    inventory: Platforms Inventory
     state: present
     variables:
       ansible_host: "{{ kubevirt_vm_definition.name }}-ssh.{{ kubevirt_vm_definition.namespace }}.svc.cluster.local"
@@ -96,7 +96,7 @@
     controller_oauthtoken: "{{ aap_token }}"
     validate_certs: false
     name: "{{ item }}"
-    inventory: Platform Inventory
+    inventory: Platforms Inventory
     state: present
     hosts:
       - "{{ kubevirt_vm_definition.name }}"

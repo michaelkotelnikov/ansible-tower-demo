@@ -22,7 +22,7 @@
     controller_host: "{{ controller_host }}"
     controller_oauthtoken: "{{ aap_token }}"
     validate_certs: false
-    name: Platform Inventory
+    name: Platforms Inventory
     description: "Platform Servers"
     organization: "Platforms Team"
     state: present
