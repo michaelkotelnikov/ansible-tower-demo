@@ -17,13 +17,13 @@
 
 - name: Create a directory for data-01
   ansible.builtin.file:
-    path: /data-01
+    path: "{{ mount_point }}"
     state: directory
     mode: '0755'
 
 - name: Mount to Directory
   ansible.posix.mount:
-    path: /data-01
+    path: "{{ mount_point }}"
     src: /dev/mapper/data--vg-data
     state: mounted
     fstype: xfs
