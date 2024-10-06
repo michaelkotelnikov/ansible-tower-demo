@@ -15,6 +15,11 @@
     fstype: xfs
     dev: /dev/mapper/data--vg-data
 
+- name: Unmount the LV
+  ansible.posix.mount:
+    path: /dev/mapper/data--vg-data
+    state: unmounted
+
 - name: Create a directory for data-01
   ansible.builtin.file:
     path: "{{ mount_point }}"
