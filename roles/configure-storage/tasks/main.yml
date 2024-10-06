@@ -20,7 +20,7 @@
     path: "{{ old_path }}"
     state: unmounted
 
-- name: Create a directory for data-01
+- name: Create a directory
   ansible.builtin.file:
     path: "{{ mount_point }}"
     state: directory
