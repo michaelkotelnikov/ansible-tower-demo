@@ -9,3 +9,15 @@
     lv: data
     size: 512m
     resizefs: true
+
+- name: Create a directory for data-01
+  ansible.builtin.file:
+    path: /data-01
+    state: directory
+    mode: '0755'
+
+- name: Mount to Directory
+  ansible.posix.mount:
+    path: /data-01
+    src: /dev/mapper/data--vg-data
+    state: present
