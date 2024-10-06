@@ -20,4 +20,4 @@
   ansible.posix.mount:
     path: /data-01
     src: /dev/mapper/data--vg-data
-    state: present
+    state: mounted
