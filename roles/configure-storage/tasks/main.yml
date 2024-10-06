@@ -17,7 +17,7 @@
 
 - name: Unmount the LV
   ansible.posix.mount:
-    path: /dev/mapper/data--vg-data
+    src: /dev/mapper/data--vg-data
     state: unmounted
 
 - name: Create a directory for data-01
