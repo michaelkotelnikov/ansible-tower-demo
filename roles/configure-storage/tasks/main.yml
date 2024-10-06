@@ -1,0 +1,11 @@
+- name: Configure VG
+  community.general.lvg:
+    vg: data-vg
+    pvs: /dev/sda
+
+- name: Configure LV
+  community.general.lvol:
+    vg: data-vg
+    lv: data
+    size: 512m
+    resizefs: true

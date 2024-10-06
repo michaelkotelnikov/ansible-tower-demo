@@ -1,0 +1,4 @@
+- hosts: vmhttpd02
+  roles:
+  - configure-storage
+  become: true
