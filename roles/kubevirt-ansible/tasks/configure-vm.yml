@@ -34,7 +34,7 @@
             - name: default
               masquerade: {}
           machine:
-            type: type: pc-q35-rhel9.3.0
+            type: pc-q35-rhel9.3.0
         networks:
         - name: default
           pod: {}
