@@ -24,7 +24,7 @@
     validate_certs: false
     name: "{{ aap_inventory }}"
     description: "Platform Servers"
-    organization: "Platforms Team"
+    organization: "System Administration"
     state: present
 
 - name: "Deploy all VMs"
