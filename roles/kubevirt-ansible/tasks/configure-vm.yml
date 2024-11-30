@@ -33,14 +33,12 @@
             interfaces:
             - name: default
               masquerade: {}
-          machine:
-            type: pc-q35-rhel9.3.0
         networks:
         - name: default
           pod: {}
         volumes:
         - containerDisk:
-            image: quay.io/containerdisks/fedora:latest
+            image: quay.io/containerdisks/fedora:40
           name: containerdisk
         - cloudInitConfigDrive:
             userData: |-
