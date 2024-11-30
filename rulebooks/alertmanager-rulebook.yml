@@ -13,7 +13,7 @@
             msg: "{{ event.payload }}"
         - run_job_template:
             name: "Enable SELinux"
-            organization: "	System Administration"
+            organization: "System Administration"
             set_facts: true
             job_args:
               extra_vars:
