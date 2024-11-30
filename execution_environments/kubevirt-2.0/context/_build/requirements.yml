@@ -1,6 +1,0 @@
----
-collections:
-  - name: kubevirt.core
-  - name: community.okd
-  - name: community.general
-  - name: awx.awx

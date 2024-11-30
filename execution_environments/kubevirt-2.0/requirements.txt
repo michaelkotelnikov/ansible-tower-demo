@@ -5,3 +5,4 @@ urllib3
 requests
 requests-oauthlib
 jmespath
+libdnf5
