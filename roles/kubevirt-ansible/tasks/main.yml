@@ -20,7 +20,8 @@
 - name: Create inventory in AAP
   awx.awx.inventory:
     controller_host: "{{ controller_host }}"
-    controller_oauthtoken: "{{ aap_token }}"
+    controller_password: "{{ aap_password }}"
+    controller_username: "admin"
     validate_certs: false
     name: "{{ aap_inventory }}"
     description: "Platform Servers"
