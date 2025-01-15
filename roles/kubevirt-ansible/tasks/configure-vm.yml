@@ -80,7 +80,8 @@
 - name: "Add the VM - {{ kubevirt_vm_definition.name }} to AAP inventory"
   awx.awx.host:
     controller_host: "{{ controller_host }}"
-    controller_oauthtoken: "{{ aap_token }}"
+    controller_password: "{{ aap_password }}"
+    controller_username: "admin"
     validate_certs: false
     name: "{{ kubevirt_vm_definition.name }}"
     inventory: "{{ aap_inventory }}"
@@ -93,7 +94,8 @@
 - name: "Add the VM - {{ kubevirt_vm_definition.name }} to AAP group"
   awx.awx.group:
     controller_host: "{{ controller_host }}"
-    controller_oauthtoken: "{{ aap_token }}"
+    controller_password: "{{ aap_password }}"
+    controller_username: "admin"
     validate_certs: false
     name: "{{ item }}"
     inventory: "{{ aap_inventory }}"
