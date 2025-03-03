@@ -11,6 +11,8 @@
       actions:
         - debug:
             msg: "{{ event.payload }}"
+        - debug:
+            msg: "The Alert status is {{ event.payload.status }}"
         - run_job_template:
             name: "Enable SELinux"
             organization: "System Administration"
